@@ -1,0 +1,94 @@
+boundary        f f f
+units           metal
+
+atom_style      atomic
+variable    	T equal 300
+
+#variable str equal E10
+
+
+timestep        .001
+
+
+read_data   struct
+
+
+region pura block -128 169.6 -128.2 169.6 -100 308.8
+region lower block INF  INF INF INF INF 10.35
+region upper block INF  INF INF INF 196.65 INF
+
+group		nicher region lower
+group		upor region upper
+group		fixed union nicher upor
+group		majher subtract all fixed
+
+pair_style eam/alloy
+pair_coeff * * CuNi.eam.alloy Ni Cu
+
+neighbor        2.0 bin
+neigh_modify    every 1
+
+
+
+
+
+
+
+
+thermo 10000
+reset_timestep  0
+dump min all atom 100 dump.min
+min_style 	cg 
+minimize 1e-6 1e-6 50000 100000
+undump 		min 
+
+fix		thamo fixed setforce 0.0 0.0 0.0
+
+fix             1 majher nve
+fix 		2 majher langevin $T $T 0.1 699483
+dump nve all atom 50000 dump.nve
+
+run             100000
+undump 		nve
+unfix 		1
+unfix 		2
+
+
+
+
+reset_timestep  0
+
+
+fix 1 majher nvt temp $T $T 0.01
+
+dump 		nvt all atom 50000 dump.nvt
+run 50000
+unfix 1
+undump nvt
+
+
+
+
+
+
+
+
+
+
+
+
+
+reset_timestep 	0
+variable velo atom 1*sin(0.016863084*(z-10.35))
+velocity majher set v_velo NULL NULL units box
+fix 2 majher nve 
+
+
+
+variable		p8 equal "ke"
+variable 		p9 equal "pe"
+
+dump	DUMP1 all atom 100000 dump_Pb.lammpstrj
+
+fix def_print all print 1 "${p8} ${p9}" file result.txt screen no
+run 10000000
