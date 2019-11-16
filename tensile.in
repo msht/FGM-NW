@@ -64,17 +64,6 @@ unfix           1
 
 
 
-compute 	csym all centro/atom 12
-compute 	2 all stress/atom NULL
-compute 	mytemp all temp
-compute 	11 all reduce sum c_2[1]
-compute 	12 all reduce sum c_2[2]
-compute 	13 all reduce sum c_2[3]
-compute 	14 all reduce sum c_2[4]
-compute 	15 all reduce sum c_2[5]
-compute 	16 all reduce sum c_2[6]
-
-
 
 
 
@@ -95,7 +84,7 @@ fix 		4 all deform 1 z erate 0.001 units box
 variable strain 	equal "(lz - v_L0)/v_L0"
 variable 		p1 equal "v_strain"
 variable 		p4 equal "-pzz/10000"
-variable 		sf equal "v_p4*1.27324"
+variable 		sf equal "v_p4*1.27324"   # A correction factor of 4/pi is multiplied to the computed stress
 dump final all atom 50000 dump.final
 
 
