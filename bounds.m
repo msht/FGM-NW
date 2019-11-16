@@ -1,7 +1,7 @@
 %This code is meant to be run by the graphs_E_UTS.m as it uses values from
 %there
 %-Md Shajedul Hoque Thakur
-q=[-199.1075 -72.1687 83.721]; %P-E-S
+q=[-199.1075 -72.1687 83.721]; %These are the values of empirical fitting parameters of Timura micromechanical model of P-FGM, E-FGM and S-FGM respectively
 for ii=[3 2 1]
 y=[];
 Voigt=[];
