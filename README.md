@@ -3,7 +3,7 @@ This readme file explains the purpose of each code in this project:
 
 1.  "eFGMstructure.m", "pFGMstructure.m" & "sFGMstructure.m"
 
-    These codes will create the lammps struct files required for both the tensile and vibrational tests
+    These codes will create the lammps structure files named 'struct' required for both the tensile and vibrational tests
     in seperate folders for each NW.
 
 2.  "tensile.in" and "vibration.in"
