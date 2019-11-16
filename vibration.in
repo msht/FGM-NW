@@ -13,14 +13,14 @@ timestep        .001
 read_data   struct
 
 
-region pura block -128 169.6 -128.2 169.6 -100 308.8
+region whole block -128 169.6 -128.2 169.6 -100 308.8
 region lower block INF  INF INF INF INF 10.35
 region upper block INF  INF INF INF 196.65 INF
 
-group		nicher region lower
-group		upor region upper
-group		fixed union nicher upor
-group		majher subtract all fixed
+group		lower region lower
+group		upper region upper
+group		fixed union lower upper
+group		middle subtract all fixed
 
 pair_style eam/alloy
 pair_coeff * * CuNi.eam.alloy Ni Cu
@@ -44,8 +44,8 @@ undump 		min
 
 fix		thamo fixed setforce 0.0 0.0 0.0
 
-fix             1 majher nve
-fix 		2 majher langevin $T $T 0.1 699483
+fix             1 middle nve
+fix 		2 middle langevin $T $T 0.1 699483
 dump nve all atom 50000 dump.nve
 
 run             100000
@@ -59,7 +59,7 @@ unfix 		2
 reset_timestep  0
 
 
-fix 1 majher nvt temp $T $T 0.01
+fix 1 middle nvt temp $T $T 0.01
 
 dump 		nvt all atom 50000 dump.nvt
 run 50000
@@ -80,8 +80,8 @@ undump nvt
 
 reset_timestep 	0
 variable velo atom 1*sin(0.016863084*(z-10.35))
-velocity majher set v_velo NULL NULL units box
-fix 2 majher nve 
+velocity middle set v_velo NULL NULL units box
+fix 2 middle nve 
 
 
 
