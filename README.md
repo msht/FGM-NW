@@ -1,5 +1,5 @@
 # FGM-NW
-This readme file explains the purpose of each scripts in this project. These scripts have been used in this paper: https://arxiv.org/abs/1911.07131. Also the data 'struct' file required to run these scripts can be generated using https://nanohub.org/tools/fgmbuilder.  
+This readme file explains the purpose of each scripts in this project. These scripts have been used in this paper: https://doi.org/10.1016/j.compositesb.2020.108212. Also the data 'struct' file required to run these scripts can be generated using https://nanohub.org/tools/fgmbuilder.  
 
 1.  "tensile.in" and "vibration.in"
 
